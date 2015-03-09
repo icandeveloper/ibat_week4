@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Week 4</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/site.css">
+    </head>
+    <body>
+        
+        <div class="container">
+            
+            <div class="inner">
+                
+              <h1>Week 4</h1>
+              
+              <p class="lead">Knockout JS</p>
+              
+              <div class="row">
+                  
+                <div class="col-md-12">
+                    
+                    <!-- This is a *view* - HTML markup that defines the appearance of your UI -->
+                    
+                    <p>First name: <strong data-bind="text: firstName"></strong></p>
+                    
+                    <p>Last name: <strong data-bind="text: lastName"></strong></p>
+                    
+                    <p data-bind="text: fullName"></p>
+                                        
+                    <hr>
+                    
+                    <p>First name: <input data-bind="value: firstName"/></p>
+                    
+                    <p>Last name: <input data-bind="value: lastName"/></p>
+                    
+                    <hr>
+                    
+                    <p>Number 1: <input data-bind="value: numOne"/></p>
+                    
+                    <p>Number 2: <input data-bind="value: numTwo"/></p>
+                    
+                    <p data-bind="text: total"></p>
+                    
+                </div> <!-- .col-md-12 -->
+                
+              </div> <!-- .row -->
+              
+            </div>
+            
+        </div>
+        
+    </body>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
+    <!-- <<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-debug.js"></script> -->
+    <!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
+    <script src="js/site.js"></script>
+    
+</html>
