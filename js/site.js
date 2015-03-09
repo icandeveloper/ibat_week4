@@ -13,6 +13,8 @@ function AppViewModel() {
     this.numOne = ko.observable(1);
     this.numTwo = ko.observable(2);
     
+    this.availableCountries = ko.observableArray(['Ireland','UK','France']);
+    
     // everything
     this.fullName = ko.computed(function () {
         
@@ -26,6 +28,41 @@ function AppViewModel() {
         return parseInt(this.numOne()) + parseInt(this.numTwo());
         
     }, this);
+    
+    /*
+     * capitalizeLastName()
+     * @returns {undefined}
+     */
+    
+    this.capitalizeLastName = function () {
+        
+        var currentVal = this.lastName();
+        this.lastName(currentVal.toUpperCase());
+        
+    };
+    
+    /*
+     * pushChina()
+     * @returns {undefined}
+     */
+    
+    this.pushChina = function () {
+        
+        this.availableCountries.push('China');
+        
+    };
+    
+    /*
+     * addCountry()
+     * @returns {undefined}
+     */
+    
+    this.addCountry = function () {
+        
+        var cn = this.newCountry();
+        this.availableCountries.push(cn);
+        
+    };
     
 }
 

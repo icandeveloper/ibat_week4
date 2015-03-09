@@ -22,32 +22,133 @@ and open the template in the editor.
               
               <p class="lead">Knockout JS</p>
               
+              <p>This is a *view* - HTML markup that defines the appearance of your UI</p>
+              
               <div class="row">
                   
                 <div class="col-md-12">
                     
-                    <!-- This is a *view* - HTML markup that defines the appearance of your UI -->
+                    <div class="panel panel-default">
+                        
+                        <div class="panel-heading">
+                            
+                            <h3 class="panel-title">Output</h3>
+                            
+                            <p>This is the output of variables 'firstName' and 'lastName' from the model.</p>
+                            
+                        </div>
+                        
+                        <div class="panel-body">
+                        
+                            <p>First name: <strong data-bind="text: firstName"></strong></p>
+
+                            <p>Last name: <strong data-bind="text: lastName"></strong></p>
+
+                            <p data-bind="text: fullName"></p>
+                        
+                        </div>
                     
-                    <p>First name: <strong data-bind="text: firstName"></strong></p>
+                    </div>
                     
-                    <p>Last name: <strong data-bind="text: lastName"></strong></p>
+                    <div class="panel panel-default">
+                        
+                        <div class="panel-heading">
+                            
+                            <h3 class="panel-title">Change variables</h3>
+                            
+                            <p>Change value of variables 'firstName' and 'lastName' from the model.</p>
+                            
+                        </div>
+                        
+                        <div class="panel-body">
+                            
+                            <p>First name: <input data-bind="value: firstName"/></p>
+
+                            <p>Last name: <input data-bind="value: lastName"/></p>
+                        
+                        </div>
+                        
+                    </div>
                     
-                    <p data-bind="text: fullName"></p>
-                                        
-                    <hr>
+                    <div class="panel panel-default">
+                        
+                        <div class="panel-heading">
+                            
+                            <h3 class="panel-title">Adding Numbers</h3>
+                            
+                            <p></p>
+                            
+                        </div>
+                        
+                        <div class="panel-body">
+                        
+                            <p>Number 1: <input data-bind="value: numOne"/></p>
+
+                            <p>Number 2: <input data-bind="value: numTwo"/></p>
+
+                            <p data-bind="text: total"></p>
                     
-                    <p>First name: <input data-bind="value: firstName"/></p>
+                        </div>
+                        
+                    </div>
+                  
+                    <div class="panel panel-default">
+                        
+                        <div class="panel-heading">
+                            
+                            <h3 class="panel-title">On Click</h3>
+                            
+                            <p></p>
+                            
+                        </div>
+                        
+                        <div class="panel-body">
+                        
+                            <button data-bind="click: capitalizeLastName">Capitalise</button>
                     
-                    <p>Last name: <input data-bind="value: lastName"/></p>
+                        </div>
+                        
+                    </div>
+              
+                    <div class="panel panel-default">
+                        
+                        <div class="panel-heading">
+                            
+                            <h3 class="panel-title">Arrays & Push 'On Click'</h3>
+                            
+                            <p></p>
+                            
+                        </div>
+                        
+                        <div class="panel-body">
+                        
+                            <p><select data-bind="options: availableCountries"></select></p>
+                            
+                            <p><button data-bind="click: pushChina">Push China</button></p>
+                            
+                        </div>
+                        
+                    </div>
                     
-                    <hr>
-                    
-                    <p>Number 1: <input data-bind="value: numOne"/></p>
-                    
-                    <p>Number 2: <input data-bind="value: numTwo"/></p>
-                    
-                    <p data-bind="text: total"></p>
-                    
+                    <div class="panel panel-default">
+                        
+                        <div class="panel-heading">
+                            
+                            <h3 class="panel-title">Push Input to availableCountries()</h3>
+                            
+                            <p></p>
+                            
+                        </div>
+                        
+                        <div class="panel-body">
+                        
+                            <p>Country: <input data-bind="value: newCountry"/></p>
+                                
+                        </div>
+                        
+                    </div>
+
+
                 </div> <!-- .col-md-12 -->
                 
               </div> <!-- .row -->
