@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    
+    <head>
+        
+        <title>Week 5</title>
+        
+        <meta charset="UTF-8">
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+        
+        <link rel="stylesheet" href="css/site.css">
+        
+    </head>
+    
+    <body>
+        
+        <div class="container">
+            
+            <div class="inner">
+                
+              <h1>Week 5</h1>
+              
+              <p class="lead">Local Storage</p>
+              
+              <div class="row">
+                
+                  <div class="col-sm-6">
+                      
+                      <div class="panel panel-default">
+                            
+                        <div class="panel-heading">Input</div>
+                            
+                        <div class="panel-body"> 
+                            
+                            <form id="form">
+
+                                <div class="form-group">
+                                    <label for="pSigns">Signs</label>
+                                    <textarea class="form-control" id="pSigns" placeholder="What signs are you displaying?"></textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Event</label>
+                                    <textarea class="form-control" id="pEvent" placeholder="What event caused this?"></textarea>
+                                </div>
+                
+                                <button id="btnSavePatientData" class="btn btn-primary">Save patient to storage</button>
+                    
+                                <button id="btnRemoveData" class="btn btn-danger">Remove from storage</button>
+                            
+                            </form>
+                        
+                        </div>
+                    
+                      </div>
+                
+                  </div>
+                  
+                  <div class="col-sm-6">
+                    
+                      <div class="panel panel-default">
+                            
+                        <div class="panel-heading">Output</div>
+                            
+                        <div class="panel-body"> 
+                      
+                            <div id="patientData"></div>
+                            
+                            <div id="patientData2"></div>
+                            
+                            <div id="patientData3"></div>
+                        
+                        </div>
+                    
+                      </div>
+
+                  </div> <!-- .col-md-6 -->
+                
+              </div> <!-- .row -->
+              
+            </div> <!-- .inner -->
+            
+        </div> <!-- .container -->
+        
+    </body>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
+    <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+    <!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
+    <!-- <script src="js/site.js"></script> -->
+    
+    <script>
+
+        var myFireBaseDataRef = new Firebase('https://kmdv0kn3spb.firebaseio-demo.com/');
+            
+        function saveToFireBase(patientData) {
+
+            //myFireBaseDataRef.set({patient: patientData});
+            myFireBaseDataRef.push({patient: patientData});
+
+        }
+        
+        myFireBaseDataRef.on('child_added', function(snapshot) {
+            var message = snapshot.val();
+            console.log('myFireBaseDataRef - child_added event ..');
+            console.log(message);
+            displayChatMessage(message.pSigns, message.pEvent);
+        });
+        
+        function displayChatMessage(pSigns, pEvents) {
+            
+            $('<div/>').text(pSigns).prepend($('<em/>').text(pEvents+': ')).appendTo($('#patientData3'));
+            $('#patientData3')[0].scrollTop = $('#patientData3')[0].scrollHeight;
+        
+        };
+      
+        $( document ).ready(function() {
+            
+            $('#form').submit(function (e) {e.preventDefault();});
+            
+            localStorage.setItem('pDataSaved',0);
+            
+            console.log('Output initial data on page load');
+            
+            showPatientData();
+
+            $('#btnSavePatientData').on("click", function () {
+                   
+                console.log('Saving to local storage as JSON ..');
+                
+                savePatientDataAsJson();
+                
+                console.log('.. and do output');
+                
+                showPatientData();
+                
+            });
+
+            $('#btnRemoveData').on("click", function () {
+                
+                console.log('Removing from local storage ..');
+
+                localStorage.removeItem('pDataSaved');
+                
+                localStorage.removeItem('pSigns');
+                localStorage.removeItem('pEvent');
+                
+                console.log('.. and empty output area');
+                
+                $('#patientData').empty();
+
+            });
+            
+            function showPatientData () {
+                
+                console.log('showPatientData() called ..');
+                
+                var pDataSaved = localStorage.getItem('pDataSaved');
+
+                if ( pDataSaved != null ) {
+                    
+                    console.log('Output the simple local storage pSigns & pEvent values ...');
+                    
+                    $('#patientData').empty();
+                    $('#patientData').append('<p>'+localStorage.getItem('pSigns')+'</p>');
+                    $('#patientData').append('<p>'+localStorage.getItem('pEvent')+'</p>');
+                    
+                    console.log('Retrieve patientJSON value and convert to JSON ...');
+                    
+                    // JSON.parse() - convert a JSON text into a JavaScript object
+                    var patientData = JSON.parse(localStorage.getItem('patientJSON'));
+                    
+                    console.log('.. and try to access object ... ');
+                    
+                    console.log(patientData.pEvent);
+                    
+                    $('#patientData2').empty();
+                    
+                    $('#patientData2').append('<p>'+patientData.pSigns+'</p>');
+                    $('#patientData2').append('<p>'+patientData.pEvent+'</p>');
+                    
+                }
+                
+            }
+            
+            function savePatientDataAsJson () {
+        
+                // gloablise
+                var patient = {};
+                
+                console.log('savePatientDataAsJson() called ..');
+                
+                localStorage.setItem('pDataSaved',1);
+                
+                console.log('Create patient object from pSigns & pEvent ..');
+                
+                patient.pSigns = $('#pSigns').val();
+                patient.pEvent = $('#pEvent').val();
+                
+                console.log('Stringify patient object and store as patientJSON ..');
+                
+                localStorage.setItem("patientJSON", JSON.stringify(patient));
+                
+                console.log('.. and result is ..');
+                
+                console.log(patient);
+                
+                console.log('.. and saving to firebase .. ');
+                
+                saveToFireBase(patient);
+                
+            }
+            
+        });
+
+    </script>
+    
+</html>

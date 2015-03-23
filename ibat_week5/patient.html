@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    
+    <head>
+        
+        <title>Week 5</title>
+        
+        <meta charset="UTF-8">
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+        
+        <link rel="stylesheet" href="css/site.css">
+        
+    </head>
+    
+    <body>
+        
+        <div class="container">
+            
+            <div class="inner">
+                
+              <h1>Week 5</h1>
+              
+              <p class="lead">Local Storage</p>
+              
+              <div class="row">
+                
+                  <div class="col-sm-6">
+                      
+                      <div class="panel panel-default">
+                            
+                        <div class="panel-heading">Navigation</div>
+                            
+                        <div class="panel-body"> 
+                            
+                            <form id="form">
+                
+                                <button id="btnBack" class="btn btn-primary">Back</button>
+                    
+                                <button id="btnForward" class="btn btn-danger">Forward</button>
+                            
+                            </form>
+                        
+                        </div>
+                    
+                      </div>
+                
+                  </div>
+                  
+                  <div class="col-sm-6">
+                    
+                      <div class="panel panel-default">
+                            
+                        <div class="panel-heading">Output</div>
+                            
+                        <div class="panel-body"> 
+                      
+                            <div id="outputData"></div>
+                        
+                        </div>
+                    
+                      </div>
+
+                  </div> <!-- .col-md-6 -->
+                
+              </div> <!-- .row -->
+              
+            </div> <!-- .inner -->
+            
+        </div> <!-- .container -->
+        
+    </body>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
+    <!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
+    <!-- <script src="js/site.js"></script> -->
+    
+    <script>
+        
+        var toys = ['Question 1',
+                    'Question 2',
+                    'Question 3',
+                    'Question 4',
+                    'Question 5',
+                    'Question 6'];
+      
+        $( document ).ready(function() {
+            
+            console.log(toys);
+            
+            $('#form').submit(function (e) {e.preventDefault();});
+            
+            localStorage.setItem('toyIndex',0);
+            
+            console.log('Output initial data on page load');
+            
+            showToysQuestion();
+
+            $('#btnBack').on("click", function () {
+                
+                console.log('btnBack() has been clicked ..');
+                
+                var toyIndex = parseInt(localStorage.getItem('toyIndex'));
+                
+                toyIndex = (toyIndex - 1);
+                
+                saveToyIndex(toyIndex);
+                
+                console.log('.. and do output');
+                
+                showToysQuestion();
+                
+            });
+
+            $('#btnForward').on("click", function () {
+                
+                console.log('btnForward() has been clicked ..');
+                
+                var toyIndex = parseInt(localStorage.getItem('toyIndex'));
+                
+                toyIndex = (toyIndex + 1);
+                
+                saveToyIndex(toyIndex);
+                
+                console.log('.. and do output');
+                
+                showToysQuestion();
+
+            });
+            
+        });
+            
+        function showToysQuestion () {
+
+            console.log('showToysQuestion() called ..');
+
+            var toyIndex = localStorage.getItem('toyIndex');
+
+            if ( toyIndex != null ) {
+
+                console.log('Index is ...' + toyIndex);
+                
+                console.log('Lenght of toys is ...' + toys.length);
+                
+                if ( toyIndex >= 0 && toyIndex <= toys.length ) {
+                    
+                    $('#outputData').append('<p>'+toys[toyIndex]+'</p>');
+                    
+                }
+            
+            }
+
+
+        }
+
+        function saveToyIndex (toyIndex) {
+
+            console.log('saveToyIndex() called ..');
+
+            localStorage.setItem('toyIndex',toyIndex);
+
+
+        }
+            
+    </script>
+    
+</html>
